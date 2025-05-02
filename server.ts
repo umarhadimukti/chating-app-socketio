@@ -1,12 +1,14 @@
 import express, { Express } from 'express';
-import http from 'http';
+import { Server as HttpServer, createServer } from 'http';
 import path from 'path';
 import dotenv from 'dotenv';
+import { Server, Socket } from 'socket.io';
 
 dotenv.config();
 
 const app: Express = express();
-const server: http.Server = http.createServer(app);
+const server: HttpServer = createServer(app);
+const io: Server = new Server(server);
 
 const PORT: number = Number(process.env.PORT) || 3000;
 
