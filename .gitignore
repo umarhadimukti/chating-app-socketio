@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+.vscode
+*.log
+*.env
+*.local
+*.local.json
+*.local.yaml
+*.local.yml
+*.local.js
+*.local.ts
