@@ -15,10 +15,15 @@ io.on('connection', (socket: Socket) => {
     console.log('connected.');
 
     // welcome current user
-    socket.emit('message', 'Hello from server');
+    socket.emit('message', 'welcome to the chat');
 
     // broadcast when a user connects
     socket.broadcast.emit('message', 'A user has joined the chat');
+
+    // listen for chat message
+    socket.on('chatMessage', (msg: string) => {
+        console.log(msg);
+    });
 
     // runs when client disconnects
     socket.on('disconnect', () => {
