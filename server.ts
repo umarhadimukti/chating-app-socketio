@@ -14,6 +14,16 @@ const io: Server = new Server(server);
 io.on('connection', (socket: Socket) => {
     console.log('connected.');
 
+    // welcome current user
+    socket.emit('message', 'Hello from server');
+
+    // broadcast when a user connects
+    socket.broadcast.emit('message', 'A user has joined the chat');
+
+    // runs when client disconnects
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left the chat');
+    })
 });
 
 const PORT: number = Number(process.env.DEFAULT_PORT) || 3004;
