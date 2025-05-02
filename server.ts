@@ -10,9 +10,15 @@ const app: Express = express();
 const server: HttpServer = createServer(app);
 const io: Server = new Server(server);
 
-const PORT: number = Number(process.env.PORT) || 3000;
+// run when client connects
+io.on('connection', (socket: Socket) => {
+    console.log('connected.');
 
-// built-in middleware
+});
+
+const PORT: number = Number(process.env.DEFAULT_PORT) || 3004;
+
+// set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
