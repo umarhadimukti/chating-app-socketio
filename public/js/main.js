@@ -16,7 +16,12 @@ socket.on('message', function(data) {
 chatForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const message = e.target.elements.msg.value;
+
+    // emit message to server
     socket.emit('chatMessage', message);
+    
+    // clear input
+    e.target.elements.msg.value = '';
 })
 
 const outputMessage = function(message) {
@@ -28,6 +33,5 @@ const outputMessage = function(message) {
             ${message}
         </p>`;
     document.querySelector('.chat-messages').appendChild(div);
-    document.querySelector('#msg').value = '';
 }
 
