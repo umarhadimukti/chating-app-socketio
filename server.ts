@@ -10,7 +10,7 @@ const app: Express = express();
 const server: HttpServer = createServer(app);
 const io: Server = new Server(server);
 
-// run when client connects
+// run when client connects to the server
 io.on('connection', (socket: Socket) => {
     console.log('connected.');
 
