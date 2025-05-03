@@ -22,7 +22,7 @@ io.on('connection', (socket: Socket) => {
 
     // listen for chat message
     socket.on('chatMessage', (msg: string) => {
-        console.log(msg);
+        io.emit('message', msg);
     });
 
     // runs when client disconnects

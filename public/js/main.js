@@ -3,7 +3,14 @@ const chatForm = document.querySelector('#chat-form');
 const socket = io();
 
 socket.on('message', function(data) {
-    console.log(data);
+    const message = data;
+
+    // show message in the DOM
+    outputMessage(message);
+
+    // scroll down to the last message
+    const chatMessages = document.querySelector('.chat-messages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 chatForm.addEventListener('submit', function(e) {
@@ -11,3 +18,16 @@ chatForm.addEventListener('submit', function(e) {
     const message = e.target.elements.msg.value;
     socket.emit('chatMessage', message);
 })
+
+const outputMessage = function(message) {
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `
+        <p class="meta">Mary <span>9:15pm</span></p>
+        <p class="text">
+            ${message}
+        </p>`;
+    document.querySelector('.chat-messages').appendChild(div);
+    document.querySelector('#msg').value = '';
+}
+
