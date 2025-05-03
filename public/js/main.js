@@ -28,9 +28,9 @@ const outputMessage = function(message) {
     const div = document.createElement('div');
     div.classList.add('message');
     div.innerHTML = `
-        <p class="meta">Mary <span>9:15pm</span></p>
+        <p class="meta">${message.username} <span>${message.time}</span></p>
         <p class="text">
-            ${message}
+            ${message.message ?? ''}
         </p>`;
     document.querySelector('.chat-messages').appendChild(div);
 }

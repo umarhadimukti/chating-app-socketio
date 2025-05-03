@@ -3,6 +3,7 @@ import { Server as HttpServer, createServer } from 'http';
 import path from 'path';
 import dotenv from 'dotenv';
 import { Server, Socket } from 'socket.io';
+import { formatMessage } from './utils/messages';
 
 dotenv.config();
 
@@ -14,20 +15,22 @@ const io: Server = new Server(server);
 io.on('connection', (socket: Socket) => {
     console.log('connected.');
 
+    const botName: string = 'Socket Bot';
+
     // welcome current user
-    socket.emit('message', 'welcome to the chat');
+    socket.emit('message', formatMessage(botName, 'Welcome to the chat 💬.'));
 
     // broadcast when a user connects
-    socket.broadcast.emit('message', 'A user has joined the chat');
+    socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat'));
 
     // listen for chat message
     socket.on('chatMessage', (msg: string) => {
-        io.emit('message', msg);
+        io.emit('message', formatMessage(`User`, msg));
     });
 
     // runs when client disconnects
     socket.on('disconnect', () => {
-        io.emit('message', 'A user has left the chat');
+        io.emit('message', formatMessage(botName, 'A user has left the chat'));
     })
 });
 

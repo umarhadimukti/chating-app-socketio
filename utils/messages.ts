@@ -7,9 +7,11 @@ interface FormattedMessage {
 }
 
 export const formatMessage = (username: string, message: string): FormattedMessage => {
+    const localTime = moment().local();
+
     return {
         username,
         message,
-        time: moment().format("h:mm a"),
+        time: localTime.format('HH.mm'),
     };
 }
