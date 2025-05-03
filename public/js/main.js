@@ -8,6 +8,13 @@ const chatForm = document.querySelector('#chat-form');
 
 const socket = io();
 
+socket.emit('join', { username, room }, (error) => {
+    if (error) {
+        alert(error);
+        location.href = '/';
+    }
+});
+
 socket.on('message', function(data) {
     const message = data;
 
