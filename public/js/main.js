@@ -1,3 +1,9 @@
+const { username, room } = Qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+    strictNullHandling: true,
+    allowDots: true,
+});
+
 const chatForm = document.querySelector('#chat-form');
 
 const socket = io();
