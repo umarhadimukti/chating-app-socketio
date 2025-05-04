@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { Server, Socket } from 'socket.io';
 import { formatMessage } from './utils/messages';
-import { userJoin } from './utils/users';
+import { userJoin, userLeave } from './utils/users';
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const io: Server = new Server(server);
 
 // run when client connects to the server
 io.on('connection', (socket: Socket) => {
-    
+
     const botName: string = 'Socket Bot';
 
     socket.on('join', ({ username, room }: { username: string; room: string }) => {
@@ -37,7 +37,10 @@ io.on('connection', (socket: Socket) => {
 
     // runs when client disconnects
     socket.on('disconnect', () => {
-        io.emit('message', formatMessage(botName, 'A user has left the chat'));
+        const user = userLeave(socket.id);
+        if (user) {
+            io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+        }
     })
 });
 
