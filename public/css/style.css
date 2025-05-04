@@ -178,6 +178,15 @@ a {
 	width: 100%;
 }
 
+#user-count {
+	width: 40px;
+	height: 40px;
+	background-color: var(--dark-color-a);
+	border-radius: 10px;
+	padding: 6px;
+	font-size: 11px;
+}
+
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;

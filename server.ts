@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { Server, Socket } from 'socket.io';
 import { formatMessage } from './utils/messages';
-import { userJoin, userLeave } from './utils/users';
+import { getRoomUsers, userJoin, userLeave } from './utils/users';
 
 dotenv.config();
 
@@ -27,6 +27,13 @@ io.on('connection', (socket: Socket) => {
 
         // broadcast when a user connects
         socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+
+        socket.emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room),
+        });
+
+        console.log(getRoomUsers(user.room));
 
     });
 

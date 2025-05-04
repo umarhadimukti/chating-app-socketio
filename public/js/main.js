@@ -15,6 +15,11 @@ socket.emit('join', { username, room }, (error) => {
     }
 });
 
+socket.on('roomUsers', ({ room, users }) => {
+    outputRoomName(room);
+    outputUsers(users);
+});
+
 socket.on('message', function(data) {
     const message = data;
 
@@ -48,3 +53,21 @@ const outputMessage = function(message) {
     document.querySelector('.chat-messages').appendChild(div);
 }
 
+const outputRoomName = function(room) {
+    const roomName = document.querySelector('#room-name');
+    roomName.innerText = room;
+}
+
+const outputUsers = function(users) {
+    const userList = document.querySelector('#users');
+    userList.innerHTML = '';
+    users.forEach(user => {
+        const li = document.createElement('li');
+        li.innerText = user.username;
+        userList.appendChild(li);
+    });
+
+    const userCount = document.querySelector('#user-count');
+    userCount.innerText = users.length;
+
+}
