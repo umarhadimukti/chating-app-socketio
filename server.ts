@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { Server, Socket } from 'socket.io';
 import { formatMessage } from './utils/messages';
-import { getRoomUsers, userJoin, userLeave } from './utils/users';
+import { getCurrentUser, getRoomUsers, userJoin, userLeave } from './utils/users';
 
 dotenv.config();
 
@@ -39,7 +39,8 @@ io.on('connection', (socket: Socket) => {
 
     // listen for chat message
     socket.on('chatMessage', (msg: string) => {
-        io.emit('message', formatMessage(`User`, msg));
+        const user = getCurrentUser(socket.id);
+        io.emit('message', formatMessage(`${user?.username}`, msg));
     });
 
     // runs when client disconnects
