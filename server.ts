@@ -33,8 +33,6 @@ io.on('connection', (socket: Socket) => {
             users: getRoomUsers(user.room),
         });
 
-        console.log(getRoomUsers(user.room));
-
     });
 
     // listen for chat message
